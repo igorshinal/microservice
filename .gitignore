@@ -171,6 +171,8 @@ fabric.properties
 # PHPUnit
 /app/phpunit.xml
 
+.idea/
+
 # Build data
 /build/
 
