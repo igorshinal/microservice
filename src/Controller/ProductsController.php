@@ -17,8 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductsController extends AbstractController
 {
     public function __construct(
-        private readonly ProductRepository $repository,
-        private EntityManagerInterface $entityManager)
+        private readonly ProductRepository      $repository,
+        private readonly EntityManagerInterface $entityManager)
     {
     }
 
@@ -47,9 +47,8 @@ class ProductsController extends AbstractController
            $product,
            date_create_immutable($lowestPriceEnquiry->getRequestDate()
            ));
-       dd($promotions);
 
-        $modifedEnquiry = $promotionsFilter->apply($lowestPriceEnquiry);
+        $modifedEnquiry = $promotionsFilter->apply($lowestPriceEnquiry, ...$promotions);
 
         $responseContent = $serializer->serialize($modifedEnquiry, 'json');
 
