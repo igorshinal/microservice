@@ -23,6 +23,7 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/products/{id}/lowest-price', name: 'lowest-price', methods: 'POST')]
+
     public function lowestPrice(
         Request                   $request,
         int                       $id,
@@ -41,12 +42,12 @@ class ProductsController extends AbstractController
 
         $product = $this->repository->find($id);
 
-       $lowestPriceEnquiry->setProduct($product);
+        $lowestPriceEnquiry->setProduct($product);
 
-       $promotions = $this->entityManager->getRepository(Promotion::class)->findValidForProduct(
-           $product,
-           date_create_immutable($lowestPriceEnquiry->getRequestDate()
-           ));
+        $promotions = $this->entityManager->getRepository(Promotion::class)->findValidForProduct(
+            $product,
+            date_create_immutable($lowestPriceEnquiry->getRequestDate()
+            ));
 
         $modifedEnquiry = $promotionsFilter->apply($lowestPriceEnquiry, ...$promotions);
 
